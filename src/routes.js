@@ -14,8 +14,8 @@ export default function AppRoutes() {
         <Router>
             <Switch>
                 {/* Public routes */}
-                <Route path="/" exact={true} render={() => <div>Home Page</div>}/>
-                <Route path="/products" exact={true} render={() => <div> <ProductList/></div>}/>
+                <Route path="/home" exact={true} render={() => <div>Home Page</div>}/>
+                <Route path="/" exact={true} render={() => <div> <ProductList/></div>}/>
                 
                 {/* Auth Routes */}
                 <Route path="/auth/login" exact={true} render={() => <div>Login</div>}/>
