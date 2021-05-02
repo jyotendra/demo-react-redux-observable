@@ -1,3 +1,4 @@
+import React from "react";
 import { requestProductsByFilter } from "./product-slice";
 import { useDispatch, useSelector } from "react-redux";
 
