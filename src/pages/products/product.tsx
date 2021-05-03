@@ -1,10 +1,10 @@
 import React from "react";
 import { requestProductsByFilter } from "./product-slice";
-import { useDispatch, useSelector } from "react-redux";
+import {useAppSelector, useAppDispatch  } from "../../app-store/hooks";
 
 export function ProductList() {
-    const products = useSelector(state => state.products);
-    const dispatch = useDispatch();
+    const products = useAppSelector((state) => state.products);
+    const dispatch = useAppDispatch();
     const apiData = products.items.map((item) => <li key={item.id}>{item.title}</li>);
     return(
         <div style={{ marginTop: "5vh", marginLeft: "5vh"}}>

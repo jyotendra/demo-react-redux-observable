@@ -3,12 +3,22 @@ import { map, filter, mergeMap } from 'rxjs/operators';
 import { ajax } from 'rxjs/ajax';
 
 
+export interface productState {
+  items: Array<itemObject>;
+  selectedProductCategories: Array<string>;
+} 
+
+interface itemObject {
+  id: number;
+  title: string;
+}
+
 const productSlice = createSlice({
   name: 'products',
   initialState: {
     items: [],
     selectedProductCategories: []
-  },
+  } as productState,
   reducers: {
     requestProductsByFilter: (state, action) => {
       state.selectedProductCategories = action.payload.productCategories;
