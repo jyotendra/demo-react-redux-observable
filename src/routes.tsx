@@ -1,17 +1,17 @@
 import React from "react";
 import {
-    BrowserRouter as Router,
     Switch,
     Route,
     Link
 } from "react-router-dom";
 import { ProductList } from "./pages/products/product";
-
+import { ConnectedRouter } from 'connected-react-router'
+import { history } from "./app-store/store"
 
 // routes prepended with "/app" shall be auth protected routes
 export default function AppRoutes() {
     return (
-        <Router>
+        <ConnectedRouter history={history}>
             <Switch>
                 {/* Public routes */}
                 <Route path="/home" exact={true} render={() => <div>Home Page</div>}/>
@@ -28,8 +28,7 @@ export default function AppRoutes() {
                 <Route path="/app/profile" exact={true} render={() => <div>Profile</div>}/>
 
             </Switch>
-        </Router>
-
+        </ConnectedRouter>
 
     );
 }

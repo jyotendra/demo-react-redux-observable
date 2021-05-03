@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { map, filter, mergeMap } from 'rxjs/operators';
+import { combineEpics } from 'redux-observable';
+import { map, filter, mergeMap, delay, tap, mapTo } from 'rxjs/operators';
 import { ajax } from 'rxjs/ajax';
+import { push } from 'connected-react-router'
 
 
 export interface productState {
@@ -30,12 +32,20 @@ const productSlice = createSlice({
   }
 });
 
-export const getProductsEpic = action$ => action$.pipe(
+const getProductsEpic = (action$: any) => action$.pipe(
   filter(requestProductsByFilter.match),
   mergeMap(action => ajax.getJSON("https://fakestoreapi.com/products").pipe(
     map(res => responseOfGetProducts(res))
-  ))
+    )
+  ));
+
+const navigateToHomeEpic = (action$: any) => action$.pipe(
+  filter(responseOfGetProducts.match),
+  delay(5000),
+  mapTo(push("/"))
 );
+
+export const productPageEpic = combineEpics(getProductsEpic, navigateToHomeEpic);
 
 
 export const { requestProductsByFilter, responseOfGetProducts } = productSlice.actions;

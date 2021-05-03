@@ -1,13 +1,15 @@
+import { createBrowserHistory } from 'history'
 import { configureStore } from '@reduxjs/toolkit'
-import { rootReducer } from './root-reducer'
 import { createEpicMiddleware } from 'redux-observable';
-import { rootEpic } from "./root-reducer";
+import { routerMiddleware } from 'connected-react-router'
+import createRootReducer, { rootEpic } from "./root-reducer";
 
+export const history = createBrowserHistory()
 const epicMiddleware = createEpicMiddleware();
 
 const store = configureStore({
-  reducer: rootReducer,
-  middleware: [epicMiddleware] as const
+  reducer: createRootReducer(history),
+  middleware: [epicMiddleware, routerMiddleware(history)] as const
 });
 
 epicMiddleware.run(rootEpic);
