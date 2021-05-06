@@ -4,7 +4,7 @@ import { createEpicMiddleware } from 'redux-observable';
 import { routerMiddleware } from 'connected-react-router'
 import createRootReducer, { rootEpic } from "./root-reducer";
 
-export const history = createBrowserHistory()
+export const history = createBrowserHistory();
 const epicMiddleware = createEpicMiddleware();
 
 const store = configureStore({

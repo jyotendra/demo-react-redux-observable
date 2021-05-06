@@ -2,6 +2,9 @@ import React from "react";
 import { requestProductsByFilter } from "./product-slice";
 import {useAppSelector, useAppDispatch  } from "../../app-store/hooks";
 
+
+// const a: productState = {};
+
 export function ProductList() {
     const products = useAppSelector((state) => state.products);
     const dispatch = useAppDispatch();
