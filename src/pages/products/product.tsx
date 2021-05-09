@@ -1,6 +1,6 @@
 import React from "react";
 import { requestProductsByFilter } from "./product-slice";
-import {useAppSelector, useAppDispatch  } from "../../app-store/hooks";
+import {useAppSelector, useAppDispatch  } from "../../appStore/hooks";
 
 
 // const a: productState = {};

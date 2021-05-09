@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import { ProductList } from "./pages/products/product";
 import { ConnectedRouter } from 'connected-react-router'
-import { history } from "./app-store/store"
+import { history } from "./appStore/store"
 
 // routes prepended with "/app" shall be auth protected routes
 export default function AppRoutes() {
