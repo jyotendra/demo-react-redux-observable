@@ -4,8 +4,14 @@ import './index.scss';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
-import store from './appStore/store'
-import { Provider } from 'react-redux'
+import store from './appStore/store';
+import { Provider } from 'react-redux';
+
+
+if(process.env.NODE_ENV === "production") {
+  // removes all console statements from prod
+  console.log = function () {};
+}
 
 ReactDOM.render(
   <Provider store={store}>
