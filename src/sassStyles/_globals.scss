@@ -4,8 +4,14 @@
 // Third F59159
 // Fourth FFEA66
 
-$primary-color: #6B206A;
-$secondary-color: #C75080;
+$primary-color: #C75080;
+
+
+
+$color-white:#ffffff;
+$color-white-rgb:#{hexToRGB(#ffffff)};
+
+$secondary-color: #6B206A;
 $third-color: #F59159;
 $fourth-color: #FFEA66;
 $page-background-color: #E5E5E5;
