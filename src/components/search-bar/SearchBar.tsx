@@ -31,10 +31,10 @@ export default class SearchBar extends React.Component<ISearchBarProps, ISearchB
     static propTypes: any = {
         widthUnit: PropTypes.string,
         searchBarWidth: PropTypes.number,
-        searchResults: PropTypes.shape({
+        searchResults: PropTypes.arrayOf(PropTypes.shape({
             title: PropTypes.string,
             meta: PropTypes.any
-        }),
+        })),
         searchCbk: PropTypes.func,
         resultClickFn: PropTypes.func
     }
