@@ -26,10 +26,11 @@ afterAll(() => server.close())
 test('if emits observables when punched input', async () => {
   
   const searchValueSubject = new Subject<string>();
+  const searchValueObservable = searchValueSubject.asObservable();
   const { rerender, getByText } = render(<SearchBar searchCbk={searchBarCallback} resultClickFn={()=>{}} />)
   function searchBarCallback(val: string) {
     searchValueSubject.next(val);
-    searchValueSubject.subscribe(v => {
+    searchValueObservable.subscribe(v => {
       ajax.getJSON<SearchResults[]>("/search").subscribe(apiSearchResults => {
         rerender(<SearchBar searchResults={apiSearchResults} searchCbk={searchBarCallback} resultClickFn={()=>{}} />);
         expect(getByText(/Bagh Bakri Tea/i)).toBeInTheDocument();
