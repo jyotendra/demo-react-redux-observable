@@ -4,18 +4,16 @@ import { of, Observable } from 'rxjs';
 import classNames from "classnames";
 import "./SearchBar.scss";
 import React from "react";
+import PropTypes from 'prop-types';
 
 
-
+/**
+ * The SearchBar component takes in user input and emits same as Observable to the parent component.
+ * Parent component can receive these observables and call API.
+ * The search result of the API can be passed as props to the component, which will then be displayed in dropdown.
+ * The SearchBar can also take a callback to be called when user selects an entry from results panel.
+ */
 export default class SearchBar extends React.Component<ISearchBarProps, ISearchBarStates> {
-
-    static defaultProps = {
-        widthUnit: "%",
-        searchBarWidth: 40,
-        searchResults: [],
-        searchCbk: (query: Observable<string>) => { query.subscribe(q => { console.log(q) }) },
-        resultClickFn: (meta: any) => { console.log(meta) },
-    }
 
     constructor(props: ISearchBarProps) {
         super(props);
@@ -28,6 +26,27 @@ export default class SearchBar extends React.Component<ISearchBarProps, ISearchB
             shouldDisplayResults: false
         };
     }
+
+
+    static propTypes: any = {
+        widthUnit: PropTypes.string,
+        searchBarWidth: PropTypes.number,
+        searchResults: PropTypes.shape({
+            title: PropTypes.string,
+            meta: PropTypes.any
+        }),
+        searchCbk: PropTypes.func,
+        resultClickFn: PropTypes.func
+    }
+
+    static defaultProps = {
+        widthUnit: "%",
+        searchBarWidth: 40,
+        searchResults: [],
+        searchCbk: (query: Observable<string>) => { query.subscribe(q => { console.log(q) }) },
+        resultClickFn: (meta: any) => { console.log(meta) },
+    }
+
 
     changeResultsContainerDisplay(shouldDisplay: boolean) {
         this.setState({ shouldDisplayResults: shouldDisplay });
@@ -88,16 +107,37 @@ export interface ISearchResults {
     meta: any;
 }
 
-interface ISearchBarProps {
+export interface ISearchBarProps {
+    /**
+     * Defines unit of width for the search component: %, em, rem etc.
+     */
     widthUnit: string;
+    /**
+     * Width of the SearchBar component. This prop combines with "widthUnit" prop
+     * to create width measure. Ex: 100px, 10% etc.
+     */
     searchBarWidth: number;
+    /**
+     * Results returned after user input are queried by API or some other mechanism.
+     * It is responsiblity of parent component to fetch data from user query and return
+     * results as searchResults.
+     */
     searchResults: ISearchResults[];
+    /**
+     * Emits observables from user user input query. This callback can be listened, using subscribe,
+     * to get user input and call api from it. Further operators like throttle, map etc can be applied
+     * on the emitted observable
+     */
     searchCbk: (query: Observable<string>) => void;
+    /**
+     * This callback will be called when user clicks on any result showed to them in drop-down panel.
+     */
     resultClickFn: (meta: any) => void;
 }
 
-interface ISearchBarStates {
+export interface ISearchBarStates {
     shouldDisplayResults: boolean;
     resultsContainerClasses: { [key: string]: boolean };
 }
+
 
